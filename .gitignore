@@ -1,0 +1,6 @@
+# ignore folder llama_cpp .gitignore
+.vscode
+llama_cpp
+models
+llama.log
+

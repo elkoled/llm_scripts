@@ -7,6 +7,7 @@ SET "models[2]=deepseek-coder-6.7b-instruct"
 SET "models[3]=zephyr-7b-beta"
 SET "models[4]=pivot-0.1-evil-a"
 SET "models[5]=dolphin-2.2.1-mistral-7b"
+SET "models[6]=starling-lm-7b-alpha"
 
 REM Define base URLs for each model
 SET "baseURLs[1]=https://huggingface.co/TheBloke/OpenHermes-2.5-neural-chat-7B-v3-1-7B-GGUF/resolve/main/"
@@ -14,12 +15,13 @@ SET "baseURLs[2]=https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GG
 SET "baseURLs[3]=https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/"
 SET "baseURLs[4]=https://huggingface.co/TheBloke/PiVoT-0.1-Evil-a-GGUF/resolve/main/"
 SET "baseURLs[5]=https://huggingface.co/TheBloke/dolphin-2.2.1-mistral-7B-GGUF/resolve/main/"
+SET "baseURLs[6]=https://huggingface.co/TheBloke/Starling-LM-7B-alpha-GGUF/resolve/main"
 
 :select_model
 ECHO Select a model:
-FOR /L %%i IN (1,1,5) DO ECHO %%i. !models[%%i]!
+FOR /L %%i IN (1,1,6) DO ECHO %%i. !models[%%i]!
 ECHO.
-SET /P modelChoice="Enter your choice (1-5): "
+SET /P modelChoice="Enter your choice (1-6): "
 IF "!modelChoice!"=="" GOTO select_model
 
 REM Validate model choice
@@ -31,13 +33,14 @@ IF "!modelName!"=="" (
 )
 
 :select_quality
-ECHO Select the model quality, high Q requires more (V)RAM usage:
+ECHO Select the model quality, high Q requires more (V)RAM usage, choose highest quality possible for your GPU:
 ECHO 1. Q2 - [~3 GB model, lowest quality]
 ECHO 2. Q3 - [~3 GB model, low quality]
 ECHO 3. Q4 - [~4 GB model, medium quality]
 ECHO 4. Q5 - [~5 GB model, high quality]
+ECHO 5. Q6 - [~6 GB model, very high quality]
 ECHO.
-SET /P qualityChoice="Enter your choice (1-3): "
+SET /P qualityChoice="Enter your choice (1-5): "
 IF "!qualityChoice!"=="" GOTO select_quality
 
 REM Determine file suffix based on quality
@@ -45,9 +48,10 @@ SET "suffix=.Q2_K.gguf"
 IF "%qualityChoice%"=="2" SET "suffix=.Q3_K_M.gguf"
 IF "%qualityChoice%"=="3" SET "suffix=.Q4_K_M.gguf"
 IF "%qualityChoice%"=="4" SET "suffix=.Q5_K_M.gguf"
+IF "%qualityChoice%"=="5" SET "suffix=.Q6_K.gguf"
 
 :select_context
-ECHO Select the context size - how many words the LLM can "remember" (Higher values require more (V)RAM):
+ECHO Select the context size - how many words the Language Model can "remember" (Higher values require more (V)RAM):
 ECHO 1. 512  (~384  words)
 ECHO 2. 1024 (~768  words)
 ECHO 3. 2048 (~1536 words)
@@ -72,7 +76,7 @@ IF "!contextSize!"=="" (
 )
 
 :select_gpu_usage
-ECHO Select the percentage of GPU usage (Higher percentage requires more VRAM):
+ECHO Select the percentage of GPU usage (Higher percentage requires more VRAM, 100% GPU is fastest):
 ECHO 1. CPU only
 ECHO 2. 50% GPU
 ECHO 3. 100% GPU
