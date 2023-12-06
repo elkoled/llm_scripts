@@ -8,6 +8,11 @@ SET "models[3]=zephyr-7b-beta"
 SET "models[4]=pivot-0.1-evil-a"
 SET "models[5]=dolphin-2.2.1-mistral-7b"
 SET "models[6]=starling-lm-7b-alpha"
+SET "models[7]=llama2-13b-tiefighter"
+SET "models[8]=pygmalion-2-13b"
+SET "models[9]=mythomax-l2-13b"
+SET "models[10]=psymedrp-v1-20b"
+SET "models[11]=llama2-13b-psyfighter2"
 
 REM Define base URLs for each model
 SET "baseURLs[1]=https://huggingface.co/TheBloke/OpenHermes-2.5-neural-chat-7B-v3-1-7B-GGUF/resolve/main/"
@@ -16,12 +21,17 @@ SET "baseURLs[3]=https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/mai
 SET "baseURLs[4]=https://huggingface.co/TheBloke/PiVoT-0.1-Evil-a-GGUF/resolve/main/"
 SET "baseURLs[5]=https://huggingface.co/TheBloke/dolphin-2.2.1-mistral-7B-GGUF/resolve/main/"
 SET "baseURLs[6]=https://huggingface.co/TheBloke/Starling-LM-7B-alpha-GGUF/resolve/main"
+SET "baseURLs[7]=https://huggingface.co/TheBloke/llama2-13B-tiefighter-GGUF/resolve/main/"
+SET "baseURLs[8]=https://huggingface.co/TheBloke/pygmalion-2-13B-GGUF/resolve/main/"
+SET "baseURLs[9]=https://huggingface.co/TheBloke/mythomax-l2-13B-GGUF/resolve/main/"
+SET "baseURLs[10]=https://huggingface.co/TheBloke/psymedrp-v1-20B-GGUF/resolve/main/"
+SET "baseURLs[11]=https://huggingface.co/TheBloke/llama2-13B-psyfighter2-GGUF/resolve/main/"
 
 :select_model
 ECHO Select a model:
-FOR /L %%i IN (1,1,6) DO ECHO %%i. !models[%%i]!
+FOR /L %%i IN (1,1,11) DO ECHO %%i. !models[%%i]!
 ECHO.
-SET /P modelChoice="Enter your choice (1-6): "
+SET /P modelChoice="Enter your choice (1-9): "
 IF "!modelChoice!"=="" GOTO select_model
 
 REM Validate model choice
@@ -33,7 +43,7 @@ IF "!modelName!"=="" (
 )
 
 :select_quality
-ECHO Select the model quality, high Q requires more (V)RAM usage, choose highest quality possible for your GPU:
+ECHO Select the model quality, high Q requires more (V)RAM usage, choose highest quality possible for your GPU. Size only applies only for ~7B Models
 ECHO 1. Q2 - [~3 GB model, lowest quality]
 ECHO 2. Q3 - [~3 GB model, low quality]
 ECHO 3. Q4 - [~4 GB model, medium quality]
