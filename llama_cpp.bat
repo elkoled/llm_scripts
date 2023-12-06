@@ -31,7 +31,7 @@ SET "baseURLs[11]=https://huggingface.co/TheBloke/llama2-13B-psyfighter2-GGUF/re
 ECHO Select a model:
 FOR /L %%i IN (1,1,11) DO ECHO %%i. !models[%%i]!
 ECHO.
-SET /P modelChoice="Enter your choice (1-9): "
+SET /P modelChoice="Enter your choice (1-11): "
 IF "!modelChoice!"=="" GOTO select_model
 
 REM Validate model choice
@@ -97,7 +97,7 @@ IF "!gpuChoice!"=="" GOTO select_gpu_usage
 REM Determine number of layers based on GPU usage choice
 SET "nglValue=0" REM Example: 0 layers for CPU only
 IF "%gpuChoice%"=="2" SET "nglValue=25" REM Example: 25 layers for 50% usage
-IF "%gpuChoice%"=="3" SET "nglValue=40" REM Example: 40 layers for 100% usage
+IF "%gpuChoice%"=="3" SET "nglValue=50" REM Example: 40 layers for 100% usage
 
 REM Construct model file path and download URL
 SET modelFile=!modelName!!suffix!
